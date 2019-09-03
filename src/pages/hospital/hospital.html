@@ -1,0 +1,30 @@
+<ion-header class="bg-thime">
+    <toolbar></toolbar>
+  </ion-header>
+  
+  <ion-content>
+      <ion-searchbar
+      [(ngModel)]="searchTerm"
+      (ionChange)="setFilteredItems()"
+    ></ion-searchbar>
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of currentItems">
+        <button ion-item (click)="searchByHospital(item)">
+          <ion-icon name="medkit" item-start></ion-icon>
+          <h2>{{item.name}}</h2>
+  <!--         <p>{{item.about}}</p>
+          <ion-note item-end *ngIf="item.note">{{item.note}}</ion-note> -->
+        </button>
+  
+        <ion-item-options *ngIf="admin">
+          <button ion-button color="danger" (click)="deleteItem(item)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="GetData($event)" *ngIf="!scroll">
+      <ion-infinite-scroll-content  loadingSpinner="bubbles"
+      loadingText="Cargando mas información...">></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>

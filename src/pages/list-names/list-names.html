@@ -1,0 +1,35 @@
+<ion-header class="bg-thime">
+    <toolbar></toolbar>
+  </ion-header>
+  
+  <ion-content>
+      <ion-searchbar
+      [(ngModel)]="searchTerm"
+      (ionChange)="setFilteredItems()"
+    ></ion-searchbar>
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of currentItems">
+          <ion-item detail-push>
+              <ion-thumbnail item-start>
+                  <ion-avatar>
+                      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                    </ion-avatar>
+              </ion-thumbnail>
+              <ion-label> 
+                 <h3>{{item.firstname}} {{item.lastname}}</h3>
+                <p>{{item.city}}</p>
+                <p>{{item.phone}}</p>
+              </ion-label>
+            </ion-item>
+        <ion-item-options >
+          <button ion-button (click)="deleteItem(item)">
+              <ion-icon name="logo-whatsapp"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="GetData($event)" *ngIf="!scroll">
+      <ion-infinite-scroll-content  loadingSpinner="bubbles"
+      loadingText="Cargando mas información...">></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
